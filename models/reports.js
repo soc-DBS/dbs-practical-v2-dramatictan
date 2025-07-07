@@ -1,5 +1,30 @@
 const { query } = require('../database');
 
+// SECTION B: Create a User Defined Database Function
+/** 
+SQL:
+CREATE OR REPLACE FUNCTION get_modules_performance()
+RETURNS TABLE (
+	mod_registered VARCHAR(10),
+	grade CHAR(2),
+	grade_count BIGINT
+) AS
+$$
+BEGIN
+	RETURN QUERY
+	SELECT
+		s.mod_registered,
+		s.grade,
+		COUNT(s.mark) AS grade_count
+	FROM
+		stud_mod_performance s
+	GROUP BY s.mod_registered, s.grade
+	ORDER BY s.mod_registered, s.grade;
+END;
+$$
+LANGUAGE plpgsql;
+ */
+
 module.exports.generateModulesPerformance = function generateModulesPerformance() {
     const sql = 'SELECT * FROM get_modules_performance()';
     return query(sql)
