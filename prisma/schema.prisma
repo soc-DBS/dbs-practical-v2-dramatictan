@@ -81,3 +81,20 @@ model userRole {
 
   @@map("user_role")
 }
+
+// module model 
+model module { 
+  modCode    Int     @id @map("mod_code") 
+  modName    String  @map("mod_name") @db.VarChar(100) 
+  creditUnit Int     @map("credit_unit") 
+  modCoord   String? @map("mod_coord") @db.Char(4)
+}
+
+model staffDependent {
+  staffNo String @map("staff_no") @db.Char(4)
+  dependentName String @map("dependent_name") @db.VarChar(30)
+  relationship String @db.VarChar(20) 
+
+  @@id([staffNo, dependentName])
+  @@map("staff_dependent")
+}
